@@ -30,15 +30,15 @@ export default function Login() {
                 style={styles.loginImage}
             />
         <View style={styles.subContainer}>
-            <Text style={{fontSize:27, color:Colors.WHITE, textAlign:'center'}}>
+            <Text style={{fontSize:27, fontFamily:'roboto-medium', color:Colors.WHITE, textAlign:'center'}}>
                 Let's Find Proffessional Cleaning and Repair Service
             </Text>
-            <Text style={{fontSize:15, color:Colors.WHITE, textAlign:'center', marginTop:20}}>
+            <Text style={{fontSize:15, fontFamily:'roboto', color:Colors.WHITE, textAlign:'center', marginTop:20}}>
                 Best place to find all your proffessionals.
             </Text>
             <TouchableOpacity style={styles.button}
                 onPress={onPress}>
-                <Text style={{textAlign:'center', color:Colors.PRIMARY}}>Let's Get Started</Text>
+                <Text style={{textAlign:'center',fontFamily:'roboto',  color:Colors.PRIMARY}}>Let's Get Started</Text>
             </TouchableOpacity>
         </View>
         </View>

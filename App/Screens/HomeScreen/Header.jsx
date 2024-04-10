@@ -16,8 +16,8 @@ export default function Header() {
                         style={styles.userImage}
                     />
                     <View>
-                        <Text style={{color:Colors.WHITE, fontSize:10}}>Welcome,</Text>
-                        <Text style={{color:Colors.WHITE, fontSize:14}}>{user?.fullName}</Text>
+                        <Text style={{color:Colors.WHITE, fontFamily:'roboto-medium'}}>Welcome,</Text>
+                        <Text style={{color:Colors.WHITE, fontSize:14, fontFamily:'roboto-bold'}}>{user?.fullName}</Text>
                     </View>
                 </View>
                 <AntDesign name="book" size={24} color={Colors.WHITE} />
@@ -42,12 +42,14 @@ const styles = StyleSheet.create({
         backgroundColor:Colors.PRIMARY,
         borderBottomLeftRadius:25,
         borderBottomRightRadius:25,
+        fontFamily:'roboto',
     },  
     profileMainContainer:{
         display:'flex',
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center',
+
     },
     profileContainer:{
         display:'flex',
