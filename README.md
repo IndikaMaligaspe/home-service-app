@@ -1,1 +1,1 @@
-*** Simple React Native app for booking professional services
+### Simple React Native app for booking professional services
