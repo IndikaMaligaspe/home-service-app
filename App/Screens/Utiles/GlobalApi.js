@@ -2,6 +2,48 @@ import { request, gql } from 'graphql-request'
 
 const MAIN_URL = 'https://api-ap-south-1.hygraph.com/v2/clutklmpu15ag07w0z9y6dbzh/master'
 
+const getBussinesList = async () =>{
+  const query = gql`
+      query GetBussinesList {
+        bussinessLists {
+          id
+          name
+          email {
+            text
+          }
+          contactPerson
+          address
+          about
+          images {
+            url
+          }
+          category {
+            name
+          }
+        }
+      }
+      `
+  const result = await request(MAIN_URL, query);
+  return result;
+}
+
+const getCategories = async () =>{
+  const query = gql`
+  query GetCategories {
+      categories {
+        id
+        name
+        icon {
+          url
+        }
+      }
+    }
+  `
+  const result = await request(MAIN_URL, query);
+  return result;
+}
+
+
 const getSlider = async () =>{
     const query = gql`
     query GetSliders {
@@ -18,23 +60,9 @@ const getSlider = async () =>{
     return result;
 }
 
-const getCategories = async () =>{
-    const query = gql`
-    query GetCategories {
-        categories {
-          id
-          name
-          icon {
-            url
-          }
-        }
-      }
-    `
-    const result = await request(MAIN_URL, query);
-    return result;
-}
 
 export default {
     getSlider,
-    getCategories
+    getCategories,
+    getBussinesList
 }
