@@ -2,7 +2,7 @@ import { View, Text, Image , StyleSheet} from 'react-native'
 import React from 'react'
 import Colors from '../Utiles/Colors'
 
-export default function BussinessListItem({item}) {
+export default function BusinessListItem({item}) {
   return (
     <View style={styles.container}>
       <Image source={{uri:item?.images[0].url}} 

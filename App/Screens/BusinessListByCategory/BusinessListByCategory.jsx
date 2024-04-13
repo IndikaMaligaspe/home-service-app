@@ -3,7 +3,7 @@ import React, { useState , useEffect} from 'react'
 import {useRoute, useNavigation} from '@react-navigation/native'
 import { AntDesign } from '@expo/vector-icons';
 import GlobalApi from '../Utiles/GlobalApi';
-import BussinessListItem from './BussinessListItem';
+import BusinessListItem from './BusinessListItem';
 import Colors from '../Utiles/Colors';
 
 export default function BussinesListByCategory() {
@@ -13,14 +13,14 @@ export default function BussinesListByCategory() {
   const [loading, setLoading] = useState(null);
 
   /**
-   * Get Bussiness LIst from server
+   * Get Business LIst from server
    */
   const getBussinesByCategory = () =>{
     GlobalApi.getBussinesListByCategory(param?.category)
         .then(resp =>{
             setBussinesList(resp?.bussinessLists)
             if(resp?.bussinessLists.length == 0)
-                setLoading(`OOPs.... No Bussiness Listing Available for -  ${param?.category}`);
+                setLoading(`OOPs.... No Business Listing Available for -  ${param?.category}`);
         })
   }
 
@@ -44,7 +44,7 @@ export default function BussinesListByCategory() {
         style={{marginTop:10}}
         renderItem={({item, index})=>
         (
-            <BussinessListItem item={item}/>
+            <BusinessListItem item={item}/>
         )}>
          </FlatList>:
          <Text style={{

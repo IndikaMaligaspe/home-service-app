@@ -2,26 +2,26 @@ import { View, Text, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import GlobalApi from '../Utiles/GlobalApi'
 import Heading from '../../Components/Heading'
-import BussinessListItem from './BussinessListItem'
+import BusinessListItem from './BusinessListItem'
 
-export default function BussinessList() {
-    const [bussinessList, setBussinessList] = useState([])
+export default function BusinessList() {
+    const [bussinessList, setBusinessList] = useState([])
     
-    const getBussinessList=() =>{
+    const getBusinessList=() =>{
         GlobalApi.getBussinesList().then(resp=>{
-            setBussinessList(resp?.bussinessLists);
+            setBusinessList(resp?.bussinessLists);
             console.log(resp?.bussinessLists)
         })
     }
 
     useEffect(()=>{
-        getBussinessList();
+        getBusinessList();
     },[])
   return (
     <View style={{marginTop:20}}
     >
         <Heading 
-            text="Our Bussiness" 
+            text="Our Business" 
             isViewAll={true} />
         <FlatList 
             data={bussinessList}
@@ -29,7 +29,7 @@ export default function BussinessList() {
             showsHorizontalScrollIndicator={false}
             renderItem={({item, index})=>(
                 <View style={{marginRight:10}}>
-                    <BussinessListItem item={item} />
+                    <BusinessListItem item={item} />
                 </View>
             )}
             

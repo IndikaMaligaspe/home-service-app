@@ -3,7 +3,7 @@ import React from 'react'
 import Header from './Header'
 import Slider from './Slider'
 import Categories from './Categories'
-import BussinessList from './BussinessList'
+import BusinessList from './BusinessList'
 
 export default function HomeScreen() {
   return (
@@ -14,7 +14,7 @@ export default function HomeScreen() {
       <View style = {{padding:10}}>
         <Slider />
         <Categories />
-        <BussinessList />
+        <BusinessList />
       </View>
     </View>
   )
