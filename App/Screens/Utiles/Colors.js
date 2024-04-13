@@ -4,5 +4,5 @@ export default {
     WHITE:'#FFF',
     GREY:'#ccbfa6',
     LIGHT_GREY:'#EDEDED',
-    PRIMARY_LIGHT:'#EDEDE',
+    PRIMARY_LIGHT:'#d1bbf0',
 }

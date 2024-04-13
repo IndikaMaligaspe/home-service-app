@@ -8,6 +8,7 @@ import BookingScreen from '../Screens/Booking/BookingScreen'
 
 import { AntDesign } from '@expo/vector-icons';
 import Colors from '../Screens/Utiles/Colors';
+import HomeNavigation from './HomeNavigation';
 
 
 
@@ -19,7 +20,7 @@ export default function TabNavigation() {
         headerShown:false,
         tabBarActiveTintColor:Colors.PRIMARY
     }}>
-        <Tab.Screen name="Home" component={HomeScreen} 
+        <Tab.Screen name="Home" component={HomeNavigation} 
             options={{
                 tabBarLabel:({color}) => (
                     <Text style={{

@@ -27,7 +27,7 @@ export default function BussinessListItem({item}) {
 
 const styles = StyleSheet.create({
     imageList:{
-        width:120,
+        width:160,
         height:100,
         borderRadius:10
     },
