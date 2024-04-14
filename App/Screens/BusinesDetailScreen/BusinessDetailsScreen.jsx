@@ -1,4 +1,4 @@
-import { View, Text , Image, TouchableOpacity, StyleSheet, ScrollView} from 'react-native'
+import { View, Text , Image, TouchableOpacity, StyleSheet, ScrollView, Modal} from 'react-native'
 import React , {useEffect, useState} from 'react'
 import {useRoute, useNavigation} from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
@@ -7,11 +7,13 @@ import Colors from '../Utiles/Colors';
 import Heading from '../../Components/Heading';
 import BusinessAboutMe from './BusinessAboutMe';
 import BusinessPhotos from './BusinessPhotos';
+import BookingModal from './BookingModal';
 
 export default function BusinessDetailsScreen() {
     const param = useRoute().params;
     const [business, setBusiness] = useState(null);
     const [numberOfLInes, setNumberofLines] = useState(true);
+    const [showBookingModel, setShowBookingModel] = useState(false);
     const navigation=useNavigation();
     useEffect(()=>{
         setBusiness(param?.business)
@@ -68,17 +70,29 @@ export default function BusinessDetailsScreen() {
                     <Text style={{
                         color:Colors.PRIMARY, 
                         fontFamily:'roboto-medium', 
-                        fontSize:'15',
+                        fontSize:15,
                         textAlign:'center'}}>Message</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.bookButton}>
+                <TouchableOpacity 
+                    style={styles.bookButton}
+                    onPress={()=>{
+                        setShowBookingModel(true)
+                    }}>
                     <Text style={{
                         color:Colors.WHITE, 
                         fontFamily:'roboto-medium', 
-                        fontSize:'15',
+                        fontSize:15,
                         textAlign:'center'}}>Book Now</Text>
                 </TouchableOpacity>
             </View>
+            <Modal 
+                animationType='slide'
+                visible={showBookingModel}
+            >
+                <BookingModal 
+                    showModel = {setShowBookingModel}
+                />
+            </Modal>
         </View>
     )
 }
