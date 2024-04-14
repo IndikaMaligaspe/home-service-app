@@ -35,7 +35,7 @@ export default function BussinesListByCategory() {
         style={{display:'flex', flexDirection:'row', alignItems:'center', gap:10}}
         onPress={()=>navigation.goBack()}
       >  
-        <AntDesign  name="back" size={15} color="black" />
+        <AntDesign  name="arrowleft" size={15} color="black" />
         <Text style={{fontFamily:'roboto-medium', fontSize:15}}>{param?.category}</Text>
       </TouchableOpacity>
       {bussinesList.length > 0? 
