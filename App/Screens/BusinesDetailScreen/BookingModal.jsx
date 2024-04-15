@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, ScrollView, KeyboardAvoidingView, TextInput } from 'react-native'
 import {useNavigation} from '@react-navigation/native';
 import React, { useEffect, useState } from 'react'
 import { AntDesign } from '@expo/vector-icons';
@@ -11,6 +11,7 @@ export default function BookingModal({showModel}) {
   const [selectedStartDate, setSelectedStartDate] = useState();
   const [timeSlots, setTimeSlots] = useState();
   const [selectedTimes, setSelectedTimes] = useState();
+  const [specialNotes, setSpecialNotes] = useState();
 
   const initTimeSlots=()=>{
     const timeSlots = [];
@@ -31,51 +32,70 @@ export default function BookingModal({showModel}) {
   },[])
 
   return (
-    <View style={{padding:10, paddingTop:30}}>
-      <View style={{marginTop:20}}>
-        <TouchableOpacity 
-            style={{display:'flex', flexDirection:'row', alignItems:'center', gap:10, marginBottom:10}}
-            onPress={()=>showModel(false)}
-          >
-            <AntDesign name="arrowleft" size={15} color="black" />
-            <Text style={{fontFamily:'roboto-medium', fontSize:15}}>Bookings</Text>
-        </TouchableOpacity>
-      </View>
+    <ScrollView>
+      <KeyboardAvoidingView style={{padding:10, paddingTop:30}}>
+        <View style={{marginTop:20}}>
+          <TouchableOpacity 
+              style={{display:'flex', flexDirection:'row', alignItems:'center', gap:10, marginBottom:10}}
+              onPress={()=>showModel(false)}
+            >
+              <AntDesign name="arrowleft" size={15} color="black" />
+              <Text style={{fontFamily:'roboto-medium', fontSize:15}}>Bookings</Text>
+          </TouchableOpacity>
+        </View>
 
-      {/* Date Selection */}
-      <Heading text={'Select Date'} />
-      <View style={styles.calendarContainer}>
-        <CalendarPicker 
-          onDateChange={setSelectedStartDate}
-          width={340} 
-          minDate={Date.now()}
-          todayBackgroundColor={Colors.BLACK}
-          todayTextStyle={{color:Colors.WHITE}}  
-          selectedDayColor={Colors.PRIMARY}
-          selectedDayTextColor={Colors.WHITE}
-          textStyle={styles.calenderText}
+        {/* Date Selection */}
+        <Heading text={'Select Date'} />
+        <View style={styles.calendarContainer}>
+          <CalendarPicker 
+            onDateChange={setSelectedStartDate}
+            width={340} 
+            minDate={Date.now()}
+            todayBackgroundColor={Colors.BLACK}
+            todayTextStyle={{color:Colors.WHITE}}  
+            selectedDayColor={Colors.PRIMARY}
+            selectedDayTextColor={Colors.WHITE}
+            textStyle={styles.calenderText}
+            />
+        </View>
+
+        {/* Time Selection */}
+        <View style={{marginTop:20}}>
+          <Heading text={'Select Time'} />
+          <FlatList 
+            data = {timeSlots}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({item, index})=>(
+              <TouchableOpacity
+                onPress={()=>setSelectedTimes(item.time)}
+                style={[selectedTimes==item.time?styles.selectedTime:styles.unSelectedTime]}
+                >
+                <Text style={[selectedTimes==item.time?styles.selectedTimeText:styles.unSelectedTimeText]}>{item.time}</Text>
+              </TouchableOpacity>
+            )}
           />
-      </View>
-
-      {/* Time Selection */}
-      <View>
-        <Heading text={'Select Time'} />
-        <FlatList 
-          data = {timeSlots}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({item, index})=>(
-            <TouchableOpacity
-              onPress={()=>setSelectedTimes(item.time)}
-              style={[selectedTimes==item.time?styles.selectedTime:styles.unSelectedTime]}
-              >
-               <Text style={{paddingLeft:10,paddingRight:10}}>{item.time}</Text>
-            </TouchableOpacity>
-          )}
-        />
-      </View>
-    
-    </View>
+        </View>
+        {/* Notes Section */}
+        <View style={{marginTop:20}}>
+          <Heading text='Any Suggestions / Notes' />
+          <View>
+            <TextInput 
+              placeholder='notes'
+              numberOfLines={4} 
+              multiline={true}
+              onChange={()=>setSpecialNotes}
+              style={styles.notesInput}
+            />
+          </View>
+        </View>
+        {/* Confirm Button */}
+        <TouchableOpacity
+         style={styles.conformBtnContainer}>
+          <Text style={styles.conformBtn}> Confirm & Book</Text>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+    </ScrollView>
   )
 }
 
@@ -111,5 +131,45 @@ const styles = StyleSheet.create({
     borderWidth:1,
     overflow: 'hidden',
     marginRight:10
+  },
+  selectedTimeText:{
+    color:Colors.WHITE,
+    backgroundColor:Colors.PRIMARY,
+    paddingLeft:10,
+    paddingRight:10,
+
+  },
+  unSelectedTimeText:{
+    color:Colors.PRIMARY,
+    backgroundColor:Colors.WHITE,
+    paddingLeft:10,
+    paddingRight:10,
+  },
+  notesInput:{
+    borderColor:Colors.PRIMARY,
+    borderWidth:1,
+    borderRadius:15,
+    fontFamily:'roboto-medium',
+    fontSize:16,
+    color:Colors.GREY,
+    textAlignVertical:'top',
+    padding:20,
+    height:150
+  },
+  conformBtnContainer:{
+    backgroundColor:Colors.PRIMARY,
+    borderColor:Colors.PRIMARY,
+    borderWidth:1,
+    borderRadius:99,
+    overflow: 'hidden',
+    marginTop:20,
+  },
+  conformBtn:{
+    textAlign:'center',
+    padding:10,
+    fontFamily:'roboto-medium',
+    fontSize:18,
+    color:Colors.WHITE,
+    elevation:2
   }
 })
