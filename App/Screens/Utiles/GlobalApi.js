@@ -88,9 +88,28 @@ const getSlider = async () =>{
 }
 
 
+const createBooking= async (data) =>{
+  const mutationQuery = gql`mutation createBooking {
+    createBooking(
+      data: {bookingStatus: Booked, 
+        bussinessList: {connect: {id: "${data.bussinesId}"}}, 
+        serviceDate: "${data.date}", 
+        serviceTime: "${data.time}", 
+        userEmail: "${data.email}", 
+        userName: "${data.userName}"}
+    ) {
+      id
+    }
+    publishManyBookings(to: PUBLISHED)
+  }`
+
+  const result = await request(MAIN_URL, query);
+  return result;
+}
 export default {
     getSlider,
     getCategories,
     getBussinesList,
-    getBussinesListByCategory
+    getBussinesListByCategory,
+    createBooking
 }
