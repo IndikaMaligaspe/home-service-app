@@ -62,8 +62,8 @@ export default function BookingModal({showModel, bussinesId}) {
       date:moment(selectedStartDate).format("yyyy-MM-DD"),
       time:selectedTimes,
       notes:specialNotes,
-      email:user?.fullName,
-      userName:user?.primaryEmailAddress.emailAddress,
+      email:user?.primaryEmailAddress.emailAddress,
+      userName:user?.fullName,
     }
 
     GlobalApi.createBooking(data)
