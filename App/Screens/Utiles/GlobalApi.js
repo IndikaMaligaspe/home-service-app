@@ -89,22 +89,32 @@ const getSlider = async () =>{
 
 
 const createBooking= async (data) =>{
-  const mutationQuery = gql`mutation createBooking {
+  const mutationQuery = gql`
+  mutation createBooking {
     createBooking(
       data: {bookingStatus: Booked, 
         bussinessList: {connect: {id: "${data.bussinesId}"}}, 
         serviceDate: "${data.date}", 
         serviceTime: "${data.time}", 
+        notes:"${data.notes}",
         userEmail: "${data.email}", 
         userName: "${data.userName}"}
     ) {
       id
     }
-    publishManyBookings(to: PUBLISHED)
   }`
 
-  const result = await request(MAIN_URL, query);
-  return result;
+  let result = await request(MAIN_URL, mutationQuery);
+  let ID =  result.createBooking.id
+  const publishQuery = gql`
+  mutation {
+    publishBooking(where: { id: "${ID}" }, to: PUBLISHED) {
+      id
+    }
+  }
+  `
+  result = await request(MAIN_URL, publishQuery);
+  return ID;
 }
 export default {
     getSlider,

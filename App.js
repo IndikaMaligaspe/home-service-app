@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font';
 import { ClerkProvider , SignedIn, SignedOut} from '@clerk/clerk-expo';
 import { NavigationContainer } from '@react-navigation/native';
 import TabNavigation from './App/Navigations/TabNavigation';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 
 export default function App() {
@@ -20,19 +21,21 @@ export default function App() {
 
 
   return (
-   <ClerkProvider publishableKey='pk_test_a2Vlbi1tdXR0LTY4LmNsZXJrLmFjY291bnRzLmRldiQ'> 
-    <View style={styles.container} >
-      <SignedIn>
-        <NavigationContainer >
-          <TabNavigation />
-        </NavigationContainer>
-      </SignedIn>
-      <SignedOut>
-        <Login style={styles.container}/>
-      </SignedOut>
-      <StatusBar style="auto" />
-    </View>
-    </ClerkProvider>
+    <RootSiblingParent>
+      <ClerkProvider publishableKey='pk_test_a2Vlbi1tdXR0LTY4LmNsZXJrLmFjY291bnRzLmRldiQ'> 
+        <View style={styles.container} >
+          <SignedIn>
+            <NavigationContainer >
+              <TabNavigation />
+            </NavigationContainer>
+          </SignedIn>
+          <SignedOut>
+            <Login style={styles.container}/>
+          </SignedOut>
+          <StatusBar style="auto" />
+        </View>
+        </ClerkProvider>
+    </RootSiblingParent>
   );
 }
 

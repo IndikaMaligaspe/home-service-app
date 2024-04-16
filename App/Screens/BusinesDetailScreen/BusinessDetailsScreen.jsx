@@ -8,6 +8,7 @@ import Heading from '../../Components/Heading';
 import BusinessAboutMe from './BusinessAboutMe';
 import BusinessPhotos from './BusinessPhotos';
 import BookingModal from './BookingModal';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 export default function BusinessDetailsScreen() {
     const param = useRoute().params;
@@ -85,13 +86,17 @@ export default function BusinessDetailsScreen() {
                         textAlign:'center'}}>Book Now</Text>
                 </TouchableOpacity>
             </View>
+            
             <Modal 
                 animationType='slide'
                 visible={showBookingModel}
             >
-                <BookingModal 
-                    showModel = {setShowBookingModel}
-                />
+                <RootSiblingParent>
+                    <BookingModal 
+                        showModel = {setShowBookingModel}
+                        bussinesId = {business.id}
+                    />
+                </RootSiblingParent>
             </Modal>
         </View>
     )

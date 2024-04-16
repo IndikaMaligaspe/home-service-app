@@ -1,17 +1,27 @@
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, ScrollView, KeyboardAvoidingView, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, 
+  FlatList, ScrollView, KeyboardAvoidingView, TextInput,  ToastAndroid,Platform } from 'react-native'
 import {useNavigation} from '@react-navigation/native';
 import React, { useEffect, useState } from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import CalendarPicker from 'react-native-calendar-picker';
 import Heading from '../../Components/Heading';
 import Colors from '../Utiles/Colors';
+import Toast from 'react-native-root-toast';
 
-export default function BookingModal({showModel}) {
+import {useUser} from '@clerk/clerk-expo'
+import moment from 'moment';
+import GlobalApi from '../Utiles/GlobalApi';
+
+
+export default function BookingModal({showModel, bussinesId}) {
   const navigation=useNavigation();
-  const [selectedStartDate, setSelectedStartDate] = useState();
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [timeSlots, setTimeSlots] = useState();
-  const [selectedTimes, setSelectedTimes] = useState();
-  const [specialNotes, setSpecialNotes] = useState();
+  const [selectedTimes, setSelectedTimes] = useState(null);
+  const [specialNotes, setSpecialNotes] = useState('');
+
+  const {user} = useUser();
+
 
   const initTimeSlots=()=>{
     const timeSlots = [];
@@ -30,6 +40,59 @@ export default function BookingModal({showModel}) {
   useEffect(()=>{
     initTimeSlots();
   },[])
+
+  const createBooking=()=>{
+    console.log('selectedStartDate',selectedStartDate, 'selectedTimes',selectedTimes);
+    if(selectedStartDate == null || selectedTimes == null){
+      console.log("INSIDE ERROR.......")
+      Toast.show("Please select service date and time", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+      // showMessage("Please select service date and time",false);
+      return;
+    }
+
+    let data = {
+      bussinesId:bussinesId,
+      date:moment(selectedStartDate).format("yyyy-MM-DD"),
+      time:selectedTimes,
+      notes:specialNotes,
+      email:user?.fullName,
+      userName:user?.primaryEmailAddress.emailAddress,
+    }
+
+    GlobalApi.createBooking(data)
+      .then(resp=>{
+        // showMessage(`Bookings Created Succesfully. Your booking number is : ${resp.id}`,true);
+        Toast.show(`Bookings Created Succesfully. Your booking number is : ${resp}`, {
+          duration: Toast.durations.LONG,
+          onHide: () => {
+            showModel(false);
+        },
+        });        
+      }).catch(err=>{
+        Toast.show(`Error while creating booking : ${resp}`, {
+          duration: Toast.durations.LONG
+        });
+      })
+  }
+
+  const showMessage = (message, isLong) =>{
+
+    // if(Platform.OS != 'android'){
+    //   Snackbar.show({
+    //     text:message,
+    //     duration:isLong?Snackbar.LENGTH_LONG:Snackbar.LENGTH_SHORT
+    //   });
+    // }else {
+    //   ToastAndroid.show(message,isLong?ToastAndroid.LONG:ToastAndroid.SHORT);
+    // }
+  }
 
   return (
     <ScrollView>
@@ -91,7 +154,11 @@ export default function BookingModal({showModel}) {
         </View>
         {/* Confirm Button */}
         <TouchableOpacity
-         style={styles.conformBtnContainer}>
+         style={styles.conformBtnContainer}
+         onPress={()=>{
+          createBooking();
+         }}
+         >
           <Text style={styles.conformBtn}> Confirm & Book</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
