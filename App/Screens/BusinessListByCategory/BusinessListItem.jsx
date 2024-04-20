@@ -10,9 +10,9 @@ export default function BusinessListItem({item, booking}) {
     
   return (
     <TouchableOpacity style={styles.container}
-        onPress={()=>{booking==null?navigation.push('bussines-details', {
-            business:item
-        }):null}}
+        onPress={()=>{navigation.push('bussines-details', {
+          business:item
+      })}}
     >
       <Image 
         source={{uri:item?.images[0].url}}
@@ -23,8 +23,10 @@ export default function BusinessListItem({item, booking}) {
         <Text style={{fontFamily:'roboto-medium', fontSize:17}}>{item?.name}</Text>
         { booking?.id != null?
         <View>
-          <View style={{backgroundColor:Colors.PRIMARY_LIGHT, flex:1, display:"flex", alignSelf:"flex-start", borderRadius:5, padding:5}}>
-           <Text style={{fontFamily:'roboto', color:Colors.PRIMARY, fontSize:16}}>
+          <View style={[booking.bookingStatus=='Booked'?styles.bookingStatusContainer:
+                        booking.bookingStatus=='Completed'?styles.completedStatusContainer:
+                        booking.bookingStatus=='Deleted'?styles.deletedStatusContainer:null]}>
+           <Text style={{fontFamily:'roboto', color:Colors.WHITE, fontSize:16}}>
             {booking.bookingStatus}
            </Text>
           </View>  
@@ -69,5 +71,29 @@ const styles = StyleSheet.create({
         display:'flex',
         flexDirection:'column',
         justifyContent:'space-between'
+    },
+    bookingStatusContainer:{
+      backgroundColor:Colors.PRIMARY_LIGHT, 
+      flex:1, 
+      display:"flex", 
+      alignSelf:"flex-start", 
+      borderRadius:5, 
+      padding:5
+    },
+    completedStatusContainer:{
+      backgroundColor:Colors.GREEN, 
+      flex:1, 
+      display:"flex", 
+      alignSelf:"flex-start", 
+      borderRadius:5, 
+      padding:5
+    },
+    deletedStatusContainer:{
+      backgroundColor:Colors.RED, 
+      flex:1, 
+      display:"flex", 
+      alignSelf:"flex-start", 
+      borderRadius:5, 
+      padding:5
     }
 })

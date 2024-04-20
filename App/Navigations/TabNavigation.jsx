@@ -9,6 +9,7 @@ import BookingScreen from '../Screens/Booking/BookingScreen'
 import { AntDesign } from '@expo/vector-icons';
 import Colors from '../Screens/Utiles/Colors';
 import HomeNavigation from './HomeNavigation';
+import BookingNavigator from './BookingNavigator';
 
 
 
@@ -33,7 +34,7 @@ export default function TabNavigation() {
             }}
         />
         
-        <Tab.Screen name="Book" component={BookingScreen} 
+        <Tab.Screen name="Book" component={BookingNavigator} 
         options={{
             tabBarLabel:({color}) => (
                 <Text style={{
