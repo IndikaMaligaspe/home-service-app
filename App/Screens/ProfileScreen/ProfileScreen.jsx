@@ -1,7 +1,11 @@
-import { View, Text, FlatList, StyleSheet,Image } from 'react-native'
+import { View, Text, FlatList, StyleSheet,Image,TouchableOpacity } from 'react-native'
 import React from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import {useUser} from '@clerk/clerk-expo'
+import {useRoute, useNavigation} from '@react-navigation/native';
+import * as Linking from 'expo-linking';
+import { ClerkProvider, SignedIn, SignedOut,useAuth } from "@clerk/clerk-expo";
+
 
 import  Colors from '../Utiles/Colors';
 
@@ -12,26 +16,32 @@ export default function ProfileScreen() {
     {
       id:1,
       name:"Home",
-      icon:"home"
+      icon:"home",
+      navigation:"home"
     },
     {
       id:2,
       name:"My Bookings",
-      icon:"book"
+      icon:"book",
+      navigation:"booking"
     },
     {
       id:3,
       name:"Contact Us",
-      icon:"mail"
+      icon:"mail",
+      navigation:"home"
     },
     {
       id:4,
       name:"Logout",
-      icon:"logout"
+      icon:"logout",
+      navigation:"logout"
     },
   ]
 
   const {user, isLoading} = useUser();
+  const navigation=useNavigation();
+  const { isLoaded,signOut } = useAuth();
   return (
     <View>
       {/* Header */}
@@ -68,14 +78,24 @@ export default function ProfileScreen() {
         <FlatList 
           data={profileMenu}
           renderItem={({item, index})=>(
-            <View style={styles.menuItemContainer}>
+            <TouchableOpacity onPress={()=>{
+              if(item.id == 3){
+               Linking.openURL(encodeURI(`mailto:${user.primaryEmailAddress.emailAddress}?subject=I am looking for a service&body=Hi There,`))
+               .then(resp=>console.log(resp))
+               .catch(err=>console.log(err))
+              } else if(item.id == 4){
+                signOut();
+              }else {
+                navigation.navigate(item.navigation)
+              }}
+              } style={styles.menuItemContainer}>
               <AntDesign name={item?.icon} size={24} color={Colors.PRIMARY} />
               <Text style={{
                 fontFamily:"roboto-medium",
                 fontSize:16,
                 color:Colors.BLACK
               }}>{item?.name}</Text>
-            </View>
+            </TouchableOpacity>
           )}
         />
       </View>

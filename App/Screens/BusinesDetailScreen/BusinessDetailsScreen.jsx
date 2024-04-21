@@ -13,7 +13,7 @@ import { RootSiblingParent } from 'react-native-root-siblings';
 export default function BusinessDetailsScreen() {
     const param = useRoute().params;
     const [business, setBusiness] = useState(null);
-    const [numberOfLInes, setNumberofLines] = useState(true);
+    const [numberOfLInes, setNumberofLines] = useState(3);
     const [showBookingModel, setShowBookingModel] = useState(false);
     const navigation=useNavigation();
     useEffect(()=>{
@@ -42,14 +42,14 @@ export default function BusinessDetailsScreen() {
                     <Text style={{fontFamily:'roboto-medium', fontSize:15, color:Colors.PRIMARY}}>{business?.contactPerson} 🌟</Text>
                     <View style={{backgroundColor:Colors.PRIMARY_LIGHT,
                                 borderRadius:2, padding:2}}>
-                        <Text style={{fontFamily:'roboto-thin', fontSize:13, 
+                        <Text style={{fontFamily:'roboto', fontSize:13, 
                                 color:Colors.PRIMARY}}>{business?.category?.name}</Text>
                     </View>            
                 </View>
                 
                 <View style={styles.addressContainer}>
                     <Ionicons name="location-sharp" size={20} color={Colors.PRIMARY}/>
-                    <Text style={{fontFamily:'roboto-thin', fontSize:13}}>{business?.address}</Text>
+                    <Text style={{fontFamily:'roboto', fontSize:13}}>{business?.address}</Text>
                 </View>
                 </View>  
                 {/* Horizontal Line */}

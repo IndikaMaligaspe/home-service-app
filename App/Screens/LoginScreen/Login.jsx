@@ -26,30 +26,32 @@ export default function Login() {
     return (
 
         <View>
-            <Image source={require('./../../../assets/icon.png')} 
-                style={styles.loginImage}
-            />
-        <View style={styles.subContainer}>
-            <Text style={{fontSize:27, fontFamily:'roboto-medium', color:Colors.WHITE, textAlign:'center'}}>
-                Let's Find Proffessional Cleaning and Repair Service
-            </Text>
-            <Text style={{fontSize:15, fontFamily:'roboto', color:Colors.WHITE, textAlign:'center', marginTop:20}}>
-                Best place to find all your proffessionals.
-            </Text>
-            <TouchableOpacity style={styles.button}
-                onPress={onPress}>
-                <Text style={{textAlign:'center',fontFamily:'roboto',  color:Colors.PRIMARY}}>Let's Get Started</Text>
-            </TouchableOpacity>
-        </View>
+            <View>
+                <Image source={require('./../../../assets/logo.png')} 
+                    style={styles.loginImage}
+                />
+            </View>
+            <View style={styles.subContainer}>
+                <Text style={{fontSize:27, fontFamily:'roboto-medium', color:Colors.WHITE, textAlign:'center'}}>
+                    Let's Find Proffessional Cleaning and Repair Service
+                </Text>
+                {/* <Text style={{fontSize:15, fontFamily:'roboto', color:Colors.WHITE, textAlign:'center', marginTop:20}}>
+                    Best place to find all your proffessionals.
+                </Text> */}
+                <TouchableOpacity style={styles.button}
+                    onPress={onPress}>
+                    <Text style={{textAlign:'center',fontFamily:'roboto',  color:Colors.PRIMARY}}>Let's Get Started</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     loginImage: {
-        width: 230,
+        width: "100%",
         height: 450,
-        marginTop:70,
+        marginTop:10,
         borderWidth:4,
         borderColor: Colors.BLACK,
         alignItems:'center',
@@ -58,11 +60,11 @@ const styles = StyleSheet.create({
     subContainer: {
         width:'100%',
         backgroundColor:Colors.PRIMARY,
-        height:'70%',
-        marginTop:-20,
+        height:'100%',
+        marginTop:-10,
         borderTopLeftRadius:30,
         borderTopRightRadius:30,
-        padding:20
+        padding:10
     },
     button:{
         padding:15,
