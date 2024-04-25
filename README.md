@@ -6,13 +6,13 @@ Welcome to Home Service App, a convenient platform for users to book various ser
 
 To get started with the Home Service App, follow these simple steps:
 
-1. **Clone the Repository**: 
+1. **Clone the Repository**: ```git clone https://github.com/your-username/home-service-app.git```
 
-2. **Install Dependencies**: 
+3. **Install Dependencies**: 
 
-3. **Start the App**: 
+4. **Start the App**: 
 
-4. **Install Expo**: Ensure you have Expo installed by following the instructions [here](https://docs.expo.dev/get-started/installation/).
+5. **Install Expo**: Ensure you have Expo installed by following the instructions [here](https://docs.expo.dev/get-started/installation/).
 
 ## Features
 
