@@ -22,7 +22,7 @@ To get started with the Home Service App, follow these simple steps:
 
 ## Features
 
-- **User Authentication**: Allow users to sign up and log in securely.
+- **User Authentication**: Allow users to sign up and log in securely using clerk/expo [here](https://clerk.com/).
 - **Service Booking**: Users can easily browse available services and book them.
 - **Vendor Management**: Vendors can manage their services and bookings efficiently.
 - **Cross-Platform Compatibility**: Works seamlessly on both iOS and Android devices.
