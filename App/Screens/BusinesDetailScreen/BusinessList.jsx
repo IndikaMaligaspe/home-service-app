@@ -1,6 +1,6 @@
 import { View, Text, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import GlobalApi from '../Utiles/GlobalApi'
+import Business from '../Utiles/Business'
 import Heading from '../../Components/Heading'
 import BusinessListItem from './BusinessListItem'
 
@@ -8,7 +8,7 @@ export default function BusinessList() {
     const [bussinessList, setBusinessList] = useState([])
     
     const getBusinessList=() =>{
-        GlobalApi.getBussinesList().then(resp=>{
+        Business.getBussinesList().then(resp=>{
             setBusinessList(resp?.bussinessLists);
         })
     }
