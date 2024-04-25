@@ -6,13 +6,13 @@ Thank you for considering contributing to the Home Service App! We welcome contr
 
 1. Fork the repository on GitHub.
 2. Clone your forked repository to your local machine:\
-  ```git clone https://github.com/your-username/home-service-app.git```\
+  ```git clone https://github.com/your-username/home-service-app.git```
 3. Create a new branch for your feature or bug fix:
 4. Make your changes and commit them to your branch:\
 ```git add .```\
-```git commit -m "Add your message here```\
+```git commit -m "Add your message here```
 5. Push your changes to your forked repository:\
-```git push origin feature-name```\
+```git push origin feature-name```
 6. Open a pull request against the `main` branch of the original repository.
 
 ## Pull Request Guidelines
