@@ -13,6 +13,7 @@ To get started with the Home Service App, follow these simple steps:
 
 ```cd home-service-app ```
 ``` npm install ```
+
 4. **Start the App**: 
 
 ```npm run start```
