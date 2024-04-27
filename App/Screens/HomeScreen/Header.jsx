@@ -1,11 +1,34 @@
-import { View, Image, StyleSheet, Text, TextInput } from 'react-native'
-import React from 'react'
+import { View, Image, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import {useUser} from '@clerk/clerk-expo'
 import Colors from '../Utiles/Colors';
-
+import GlobalApi from '../Utiles/GlobalApi'
 import { AntDesign } from '@expo/vector-icons';
+import {useNavigation} from '@react-navigation/native'
 
 export default function Header() {
+
+    const [bussinesLest, setBussinesList] = useState([])
+    const [searchTerm, setsearchTerm] = useState(null)
+    const [search, setSearch] = useState(false)
+
+    const navigation = useNavigation();
+
+    const searchBessinessLists = () =>{
+        GlobalApi.getBussinesList(searchTerm).then(resp=>{
+            setBussinesList(resp?.bussinessLists);
+            console.log(resp?.bussinessLists)
+            navigation.push('bussines-list-search',{list:resp?.bussinessLists, isViewAll:false})
+        }).catch(err =>{
+          console.log("No bussinessLists found", err);
+        });
+        setSearch(false);
+      }
+
+    useEffect(()=>{
+        search&&searchBessinessLists();
+      },[search])
+
     const {user, isLoading} = useUser();
     return user&& (
         <View style={styles.container}>
@@ -27,10 +50,13 @@ export default function Header() {
                 <TextInput 
                     placeholder='Search'
                     style={styles.textInput}
+                    onChange={()=>{setsearchTerm}}
                 />
-                <View style={styles.searchButtonContainer} >
+                <TouchableOpacity style={styles.searchButtonContainer} 
+                    onPress={()=>{setSearch(true)}}
+                >
                     <AntDesign name="search1"  style={styles.searchButton}/>
-                </View>
+                </TouchableOpacity>
              </View>
         </View>
   )

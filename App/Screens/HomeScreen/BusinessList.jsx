@@ -19,7 +19,7 @@ export default function BusinessList() {
   return (
     <View style={{marginTop:20}}
     >
-        <Heading 
+        <Heading
             text="Our Business" 
             isViewAll={true} />
         <FlatList 

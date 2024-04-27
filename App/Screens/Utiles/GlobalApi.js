@@ -144,11 +144,43 @@ const getBookings = async (userName) =>{
   const result = await request(MAIN_URL, query);
   return result;
 }
+
+
+const searchBussiness = async (searchTerm) =>{
+  const query = gql`
+      query SearchBusiness {
+        bussinessLists(
+          where: {name_contains: "${searchTerm}", 
+              OR: {category: {name_contains: "${searchTerm}"}}}
+        ) {
+          id
+          about
+          address
+          contactPerson
+          name
+          email {
+            text
+          }
+          images {
+            url
+          }
+          category {
+            id
+            name
+          }
+        }
+      }
+  `
+  console.log(query)
+  const result = await request(MAIN_URL, query);
+  return result;
+}
 export default {
     getSlider,
     getCategories,
     getBussinesList,
     getBussinesListByCategory,
     createBooking,
-    getBookings
+    getBookings,
+    searchBussiness
 }
