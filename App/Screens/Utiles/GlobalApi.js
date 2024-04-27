@@ -150,8 +150,7 @@ const searchBussiness = async (searchTerm) =>{
   const query = gql`
       query SearchBusiness {
         bussinessLists(
-          where: {name_contains: "${searchTerm}", 
-              OR: {category: {name_contains: "${searchTerm}"}}}
+          where: {name_contains: "${searchTerm}"}
         ) {
           id
           about

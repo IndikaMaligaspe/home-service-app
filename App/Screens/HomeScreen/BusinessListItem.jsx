@@ -2,9 +2,9 @@ import { View, Text, Image , StyleSheet} from 'react-native'
 import React from 'react'
 import Colors from '../Utiles/Colors'
 
-export default function BusinessListItem({item}) {
+export default function BusinessListItem({item, page}) {
   return (
-    <View style={styles.container}>
+    <View style={[page=='search'?styles.searchContainer:styles.container]}>
       <Image source={{uri:item?.images[0].url}} 
         style={styles.imageList}
       />
@@ -34,8 +34,16 @@ const styles = StyleSheet.create({
     container:{
         padding:10,
         backgroundColor:Colors.WHITE,
-        borderRadius:10
+        borderRadius:10,
+        display:'flex',
 
+    },
+    searchContainer:{
+      padding:10,
+      backgroundColor:Colors.WHITE,
+      borderRadius:10,
+      display:'flex',
+      flexDirection:'row'
     },
     infoContainer:{
         display:'flex',

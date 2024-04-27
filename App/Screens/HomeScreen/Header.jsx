@@ -15,14 +15,17 @@ export default function Header() {
     const navigation = useNavigation();
 
     const searchBessinessLists = () =>{
-        GlobalApi.getBussinesList(searchTerm).then(resp=>{
-            setBussinesList(resp?.bussinessLists);
-            console.log(resp?.bussinessLists)
-            navigation.push('bussines-list-search',{list:resp?.bussinessLists, isViewAll:false})
-        }).catch(err =>{
-          console.log("No bussinessLists found", err);
-        });
+        console.log("searchTerm ->",searchTerm)
+        navigation.push('bussines-list-search',{searchTerm:searchTerm, isViewAll:false})
+        // GlobalApi.searchBussiness(searchTerm).then(resp=>{
+        //     setBussinesList(resp?.bussinessLists);
+        //     console.log(resp?.bussinessLists)
+        //     navigation.push('bussines-list-search',{list:bussinesLest, isViewAll})
+        // }).catch(err =>{
+        //   console.log("No bussinessLists found", err);
+        // });
         setSearch(false);
+
       }
 
     useEffect(()=>{
@@ -50,7 +53,8 @@ export default function Header() {
                 <TextInput 
                     placeholder='Search'
                     style={styles.textInput}
-                    onChange={()=>{setsearchTerm}}
+                    onChangeText={(text)=>{setsearchTerm(text)}}
+                    value={searchTerm}
                 />
                 <TouchableOpacity style={styles.searchButtonContainer} 
                     onPress={()=>{setSearch(true)}}
